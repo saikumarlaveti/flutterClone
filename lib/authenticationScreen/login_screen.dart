@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tinder_application/authenticationScreen/homescreen.dart';
 import 'package:tinder_application/authenticationScreen/registration_screen.dart';
 import 'package:tinder_application/widgets/custom_text_field_widget.dart';
-import 'custom_text_field_widget.dart'; // Ensure this matches the file name
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
   bool showProgressBar = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,9 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   isObscure: false, // Corrected property name
                 ),
               ),
-              const SizedBox(
-                height: 24,
-              ),
+              const SizedBox(height: 24),
               SizedBox(
                 width: MediaQuery.of(context).size.width - 36,
                 height: 55,
@@ -60,20 +59,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   isObscure: true, // Corrected property name
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               //login button
+              // Inside the LoginScreen widget
               Container(
                 width: MediaQuery.of(context).size.width - 36,
                 height: 50,
                 decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
-                    )),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                ),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    // Navigate to the HomeScreen after login
+                    Get.to(() => const HomeScreen());
+                  },
                   child: const Center(
                     child: Text(
                       "Login",
@@ -86,13 +88,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              //don't have an accoutn
+
+              const SizedBox(height: 16),
+              //don't have an account
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Don't have an account? ",
                     style: TextStyle(
                       fontSize: 16,
@@ -101,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(RegistrationScreen());
+                      Get.to(() => const RegistrationScreen());
                     },
                     child: const Text(
                       "Create account",
@@ -111,14 +113,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              showProgressBar == true
-                  ? CircularProgressIndicator(
+              const SizedBox(height: 16),
+              showProgressBar
+                  ? const CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.pink),
                     )
                   : Container(),
